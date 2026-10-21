@@ -122,3 +122,36 @@
 // PREMIER TEST CONSEILLÉ :
 // console.log(films);
 // Décommentez temporairement cette ligne pour explorer les données, puis avancez.
+
+let filmcatalogue=document.getElementById("films-container");
+console.log(filmcatalogue)
+films.forEach(film => {
+    filmcatalogue.innerHTML += `<article class="overflow-hidden rounded-2xl border border-red-400 bg-white shadow-xl ring-2 ring-red-100" data-film-id="${film.id}">
+    <div class="relative"><img src="${film.affiche}" alt="${film.description}" class="aspect-[2/3] w-full object-cover">
+    <span class="absolute bottom-3 right-3 rounded-full bg-white/95 px-3 py-1 text-xs font-extrabold shadow-lg">${film.prix}</span></div>
+    <div class="p-4"><p class="text-xs font-bold uppercase tracking-wider text-cine-red">Science-fiction</p><h3 class="mt-1 text-lg font-black">${film.titre}</h3>
+    <p class="mt-2 text-sm text-slate-500">${trstmps(film)}</p><button  class=  "btn mt-4 w-full rounded-xl   border border-slate-300 bg-slate-50 px-4 py-3 font-extrabold text-slate-700 "  type="button"id="select" >choiser ce filme</button></div>
+</article>`;
+});
+function trstmps(films){
+    let heur=Math.floor(films.duree/60);
+    let min=Math.floor(films.duree%60);
+    return heur+"h-"+min+"m"
+}
+let btns = document.querySelectorAll(".btn");
+btns.forEach(btn => {
+    let celecture = false;
+
+    btn.addEventListener("click", () => {
+        celecture = !celecture;
+
+        if (celecture) {
+            btn.className = "btn mt-4 w-full rounded-xl bg-cine-red px-4 py-3 font-extrabold text-white";
+            btn.textContent = "Sélectionné";
+        } else {
+            btn.className = "btn mt-4 w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 font-extrabold text-slate-700";
+            btn.textContent = "Choisir ce film";
+        }
+    });
+});
+
