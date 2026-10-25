@@ -162,15 +162,16 @@ btns.forEach(btn => {
             filmselected.push(id)
         }
         
-container.innerHTML=``;
+        container.innerHTML=``;
 films.forEach(film=>{
+
   
     console.log(film.id)
     console.log(filmselected)
     if(filmselected.includes(film.id)){
         container.innerHTML+=`<div  class="mt-6 grid gap-5 rounded-2xl bg-slate-50 p-5 sm:grid-cols-[100px_1fr]">
          <img src="${film.affiche}" alt="${film.description}" class="aspect-[2/3] w-24 rounded-xl object-cover shadow-md">
-        <div><div class="flex flex-wrap items-center gap-2"><h3 class="text-xl font-black">${film.titre}</h3><span class="rounded-full bg-red-100 px-3 py-1 text-xs font-bold text-red-700">${film.prix}</span></div><p class="mt-2 text-sm font-semibold text-slate-500">Science-fiction · 2 h 04 min</p><p class="mt-3 leading-7 text-slate-600">Une exploratrice suit un signal inconnu jusqu’aux confins d’une galaxie oubliée.</p></div>
+        <div><div class="flex flex-wrap items-center gap-2"><h3 class="text-xl font-black">${film.titre}</h3><span class="rounded-full bg-red-100 px-3 py-1 text-xs font-bold text-red-700">${film.prix}</span></div><p class="mt-2 text-sm font-semibold text-slate-500">Science-fiction · ${trstmps(film)}</p><p class="mt-3 leading-7 text-slate-600">${film.description}</p></div>
         </div> `
     }
 })
