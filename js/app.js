@@ -20,10 +20,10 @@
 // ==================================================
 // 0 BIS - MÉMORISER L'ÉTAT DE L'APPLICATION
 // ==================================================
-// OBJECTIF : mémoriser temporairement le film, la séance et les sièges choisis.
-// Les données décrivent les films ; l'état décrit les choix actuels de l'utilisateur.
+// OBJECTIF : mémoriser temporairement le films, la séance et les sièges choisis.
+// Les données décrivent les filmss ; l'état décrit les choix actuels de l'utilisateur.
 // NOTIONS UTILES : let, null, tableau vide [].
-// PISTES : que faut-il remettre à zéro lorsqu'un autre film est choisi ?
+// PISTES : que faut-il remettre à zéro lorsqu'un autre films est choisi ?
 // TODO : déclarez trois variables avec des valeurs initiales adaptées.
 // ÉCRIVEZ VOTRE CODE ICI :
 
@@ -124,13 +124,15 @@
 // Décommentez temporairement cette ligne pour explorer les données, puis avancez.
 
 let filmcatalogue=document.getElementById("films-container");
+let container=document.getElementById("film-details")
+let filmselected=[]
 console.log(filmcatalogue)
 films.forEach(film => {
     filmcatalogue.innerHTML += `<article class="overflow-hidden rounded-2xl border border-red-400 bg-white shadow-xl ring-2 ring-red-100" data-film-id="${film.id}">
     <div class="relative"><img src="${film.affiche}" alt="${film.description}" class="aspect-[2/3] w-full object-cover">
     <span class="absolute bottom-3 right-3 rounded-full bg-white/95 px-3 py-1 text-xs font-extrabold shadow-lg">${film.prix}</span></div>
     <div class="p-4"><p class="text-xs font-bold uppercase tracking-wider text-cine-red">Science-fiction</p><h3 class="mt-1 text-lg font-black">${film.titre}</h3>
-    <p class="mt-2 text-sm text-slate-500">${trstmps(film)}</p><button  class=  "btn mt-4 w-full rounded-xl   border border-slate-300 bg-slate-50 px-4 py-3 font-extrabold text-slate-700 "  type="button"id="select" >choiser ce filme</button></div>
+    <p class="mt-2 text-sm text-slate-500">${trstmps(film)}</p><button  class=  "btn mt-4 w-full rounded-xl   border border-slate-300 bg-slate-50 px-4 py-3 font-extrabold text-slate-700 "  type="button" id="${film.id}" >choiser ce filme</button></div>
 </article>`;
 });
 function trstmps(films){
@@ -138,9 +140,13 @@ function trstmps(films){
     let min=Math.floor(films.duree%60);
     return heur+"h-"+min+"m"
 }
+
 let btns = document.querySelectorAll(".btn");
 btns.forEach(btn => {
     let celecture = false;
+    let id=Number(btn.id)
+   
+    let filmselected=[]
 
     btn.addEventListener("click", () => {
         celecture = !celecture;
@@ -148,10 +154,45 @@ btns.forEach(btn => {
         if (celecture) {
             btn.className = "btn mt-4 w-full rounded-xl bg-cine-red px-4 py-3 font-extrabold text-white";
             btn.textContent = "Sélectionné";
-        } else {
+            filmselected.push(id)
+        } 
+        else {
             btn.className = "btn mt-4 w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 font-extrabold text-slate-700";
             btn.textContent = "Choisir ce film";
+            filmselected.push(id)
         }
-    });
+        
+container.innerHTML=``;
+films.forEach(film=>{
+  
+    console.log(film.id)
+    console.log(filmselected)
+    if(filmselected.includes(film.id)){
+        container.innerHTML+=`<div  class="mt-6 grid gap-5 rounded-2xl bg-slate-50 p-5 sm:grid-cols-[100px_1fr]">
+         <img src="${film.affiche}" alt="${film.description}" class="aspect-[2/3] w-24 rounded-xl object-cover shadow-md">
+        <div><div class="flex flex-wrap items-center gap-2"><h3 class="text-xl font-black">${film.titre}</h3><span class="rounded-full bg-red-100 px-3 py-1 text-xs font-bold text-red-700">${film.prix}</span></div><p class="mt-2 text-sm font-semibold text-slate-500">Science-fiction · 2 h 04 min</p><p class="mt-3 leading-7 text-slate-600">Une exploratrice suit un signal inconnu jusqu’aux confins d’une galaxie oubliée.</p></div>
+        </div> `
+    }
+})
+    }
+    
+);
 });
+
+// const container=document.getElementById("film-details")
+// container.innerHTML=``;
+// films.forEach(film=>{
+  
+//     console.log(film.id)
+//     console.log(filmselected)
+//     if(filmselected.includes(film.id)){
+//         container.innerHTML+=`<div  class="mt-6 grid gap-5 rounded-2xl bg-slate-50 p-5 sm:grid-cols-[100px_1fr]">
+//          <img src="${film.affiche}" alt="${film.description}" class="aspect-[2/3] w-24 rounded-xl object-cover shadow-md">
+//         <div><div class="flex flex-wrap items-center gap-2"><h3 class="text-xl font-black">${film.titre}</h3><span class="rounded-full bg-red-100 px-3 py-1 text-xs font-bold text-red-700">${film.prix}</span></div><p class="mt-2 text-sm font-semibold text-slate-500">Science-fiction · 2 h 04 min</p><p class="mt-3 leading-7 text-slate-600">Une exploratrice suit un signal inconnu jusqu’aux confins d’une galaxie oubliée.</p></div>
+//         </div> `
+//     }
+// })
+
+
+
 
